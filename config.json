@@ -1,0 +1,6 @@
+{
+    "nessus_url": "https://localhost:8834",
+    "nessus_access_key": "votre_access_key",
+    "nessus_secret_key": "votre_secret_key",
+    "verify_ssl": false
+} 

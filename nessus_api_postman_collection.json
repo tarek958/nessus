@@ -1,0 +1,188 @@
+{
+  "info": {
+    "name": "Nessus API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"votre_utilisateur\",\n    \"password\": \"votre_mot_de_passe\"\n}"
+        },
+        "url": {
+          "raw": "https://localhost:8834/session",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "8834",
+          "path": ["session"]
+        },
+        "description": "Obtenir un token d'authentification (X-Cookie)"
+      }
+    },
+    {
+      "name": "Liste des scans",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-ApiKeys",
+            "value": "accessKey=votre_access_key; secretKey=votre_secret_key"
+          }
+        ],
+        "url": {
+          "raw": "https://localhost:8834/scans",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "8834",
+          "path": ["scans"]
+        },
+        "description": "Récupérer la liste des scans"
+      }
+    },
+    {
+      "name": "Créer un scan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-ApiKeys",
+            "value": "accessKey=votre_access_key; secretKey=votre_secret_key"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"uuid\": \"8d6f194d-8e9a-4b2f-9c9a-3dbb212e425d\",\n    \"settings\": {\n        \"name\": \"Scan Automatisé\",\n        \"text_targets\": \"192.168.1.0/24\",\n        \"enabled\": true\n    }\n}"
+        },
+        "url": {
+          "raw": "https://localhost:8834/scans",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "8834",
+          "path": ["scans"]
+        },
+        "description": "Créer un nouveau scan"
+      }
+    },
+    {
+      "name": "Lancer un scan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-ApiKeys",
+            "value": "accessKey=votre_access_key; secretKey=votre_secret_key"
+          }
+        ],
+        "url": {
+          "raw": "https://localhost:8834/scans/{{scan_id}}/launch",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "8834",
+          "path": ["scans", "{{scan_id}}", "launch"]
+        },
+        "description": "Lancer un scan existant"
+      }
+    },
+    {
+      "name": "Statut d'un scan",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-ApiKeys",
+            "value": "accessKey=votre_access_key; secretKey=votre_secret_key"
+          }
+        ],
+        "url": {
+          "raw": "https://localhost:8834/scans/{{scan_id}}",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "8834",
+          "path": ["scans", "{{scan_id}}"]
+        },
+        "description": "Obtenir le statut d'un scan"
+      }
+    },
+    {
+      "name": "Résultats d'un scan",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-ApiKeys",
+            "value": "accessKey=votre_access_key; secretKey=votre_secret_key"
+          }
+        ],
+        "url": {
+          "raw": "https://localhost:8834/scans/{{scan_id}}/hosts/{{host_id}}",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "8834",
+          "path": ["scans", "{{scan_id}}", "hosts", "{{host_id}}"]
+        },
+        "description": "Récupérer les résultats d'un scan pour un hôte spécifique"
+      }
+    },
+    {
+      "name": "Exporter un rapport",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-ApiKeys",
+            "value": "accessKey=votre_access_key; secretKey=votre_secret_key"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"format\": \"pdf\",\n    \"chapters\": \"vuln_hosts_summary;vuln_by_host\"\n}"
+        },
+        "url": {
+          "raw": "https://localhost:8834/scans/{{scan_id}}/export",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "8834",
+          "path": ["scans", "{{scan_id}}", "export"]
+        },
+        "description": "Exporter un rapport de scan"
+      }
+    },
+    {
+      "name": "Télécharger un rapport",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-ApiKeys",
+            "value": "accessKey=votre_access_key; secretKey=votre_secret_key"
+          }
+        ],
+        "url": {
+          "raw": "https://localhost:8834/scans/{{scan_id}}/export/{{file_id}}/download",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "8834",
+          "path": ["scans", "{{scan_id}}", "export", "{{file_id}}", "download"]
+        },
+        "description": "Télécharger un rapport exporté"
+      }
+    }
+  ]
+} 
